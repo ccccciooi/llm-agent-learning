@@ -1,0 +1,7 @@
+llm:
+  base-url: ${OPENAI_COMPAT_BASE_URL}
+  base-uri: ${OPENAI_COMPAT_BASE_URI}
+  api-key: ${OPENAI_COMPAT_API_KEY}
+  model: ${OPENAI_COMPAT_MODEL}
+  authorization-header: ${llm.authorization.header:Authorization}
+  authorization-prefix: ${llm.authorization.prefix:Bearer}
