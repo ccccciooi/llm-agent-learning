@@ -83,3 +83,67 @@ llm-agent-learning/
 - `401` / `403`：API key 错误、过期，或账号没有权限。
 - `404`：通常是 `base_url` 或 `model` 写错；先确认 `base_url` 是否应该以 `/v1` 结尾。
 - `429`：触发供应商限流，稍后重试。
+
+## 5. 最小 Agent 循环
+
+`src/llm_agent_learning/agent.py` 实现了同步、非流式的最小 Agent：
+
+```text
+用户消息
+  → LLM 返回 tool_calls
+  → Python 执行工具
+  → 把 tool 结果追加到 messages
+  → 再次调用 LLM
+  → LLM 返回最终文本
+```
+
+运行加法工具示例：
+
+```bash
+uv run python examples/02_minimal_agent.py
+```
+
+运行模拟天气工具示例：
+
+```bash
+uv run python examples/03_weather_tool.py
+```
+
+天气示例中的数据来自本地固定字典，用于观察完整工具调用流程，不会请求外部天气服务。
+
+核心用法：
+
+```python
+from llm_agent_learning.agent import AgentTool, MinimalAgent
+
+tool = AgentTool(
+    name="add_numbers",
+    description="计算两个数字的和",
+    parameters={
+        "type": "object",
+        "properties": {
+            "left": {"type": "number"},
+            "right": {"type": "number"},
+        },
+        "required": ["left", "right"],
+    },
+    execute=add_numbers,
+)
+
+agent = MinimalAgent(
+    client=client,
+    system_prompt="遇到算术问题必须调用工具。",
+    tools=[tool],
+)
+answer = agent.run("计算 123 加 456")
+```
+
+这个实现支持一轮中的多个工具调用，并设置了最大调用轮数，防止模型无限循环。第一版不包含流式输出、并行工具、跨调用会话记忆和 TUI。
+
+运行真实 LLM 集成测试：
+
+```bash
+uv run python -m unittest discover -s tests -v
+```
+
+当前 `tests/` 使用 `config.yaml` 和本地 `.env` 中配置的真实 LLM，不使用模拟响应。运行测试会访问网络并产生模型请求费用，结果也可能受到供应商状态和模型行为影响。
