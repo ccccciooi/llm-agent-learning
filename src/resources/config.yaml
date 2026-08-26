@@ -5,3 +5,7 @@ llm:
   model: ${OPENAI_COMPAT_MODEL}
   authorization-header: ${llm.authorization.header:Authorization}
   authorization-prefix: ${llm.authorization.prefix:Bearer}
+memory-rag:
+  qdrant-url: ${QDRANT_URL}
+  collection-name: ${MEMORY_RAG_COLLECTION:memories}
+  qdrant-api-key: ${QDRANT_API_KEY}
