@@ -1,6 +1,6 @@
-from python.memory_rag.infrastructure.openai_embedding_provider import OpenAIEmbeddingProvider
-from python.util.yaml_config import get_yaml_config
-from python.memory_rag.ports.embedding_provider import EmbeddingProvider
+from memory_rag.infrastructure.openai_embedding_provider import OpenAIEmbeddingProvider
+from memory_rag.util.yaml_config import get_yaml_config
+from memory_rag.ports.embedding_provider import EmbeddingProvider
 
 if __name__ == '__main__':
 

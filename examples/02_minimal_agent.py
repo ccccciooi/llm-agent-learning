@@ -6,9 +6,9 @@
 示例会真实请求配置的模型，因此运行前需要正确填写本地 .env。
 """
 
-from python.llm_agent_learning import AgentTool, JsonValue, MinimalAgent
-from python.llm_agent_learning.client import create_llm_client
-from python.llm_agent_learning.config import load_config
+from study.llm_agent_learning import AgentTool, JsonValue, MinimalAgent
+from study.llm_agent_learning import create_llm_client
+from study.llm_agent_learning import load_config
 
 
 def add_numbers(arguments: dict[str, JsonValue]) -> JsonValue:

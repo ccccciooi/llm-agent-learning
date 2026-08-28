@@ -114,7 +114,7 @@ uv run python examples/03_weather_tool.py
 核心用法：
 
 ```python
-from python.llm_agent_learning import AgentTool, MinimalAgent
+from study.llm_agent_learning import AgentTool, MinimalAgent
 
 tool = AgentTool(
     name="add_numbers",

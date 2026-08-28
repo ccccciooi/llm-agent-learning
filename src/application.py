@@ -1,7 +1,7 @@
 import json
 
-from llm_agent_learning.client import create_llm_client
-from llm_agent_learning.config import load_config
+from study.llm_agent_learning.client import create_llm_client
+from study.llm_agent_learning.config import load_config
 
 if __name__ == '__main__':
     llm_config = load_config()

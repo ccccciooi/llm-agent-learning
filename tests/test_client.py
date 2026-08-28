@@ -6,8 +6,8 @@
 
 import unittest
 
-from python.llm_agent_learning.client import create_llm_client
-from python.llm_agent_learning.config import load_config
+from study.llm_agent_learning import create_llm_client
+from study.llm_agent_learning import load_config
 
 
 class RealLLMClientIntegrationTest(unittest.TestCase):

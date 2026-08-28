@@ -1,8 +1,8 @@
 from asyncio.windows_events import NULL
 from dataclasses import dataclass
 
-from python.memory_rag.domain.models import Memory, MemorySearchQuery, MemorySearchResult
-from python.memory_rag.ports.memory_repository import MemoryRepository
+from memory_rag.domain.models import Memory, MemorySearchQuery, MemorySearchResult
+from memory_rag.ports.memory_repository import MemoryRepository
 
 
 @dataclass

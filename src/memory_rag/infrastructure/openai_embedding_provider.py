@@ -1,6 +1,6 @@
 from openai import OpenAI
 
-from python.memory_rag.ports.embedding_provider import EmbeddingProvider
+from memory_rag.ports.embedding_provider import EmbeddingProvider
 
 
 class OpenAIEmbeddingProvider(EmbeddingProvider):

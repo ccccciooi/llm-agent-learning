@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 from httpx import Client
 
-from python.llm_agent_learning.config import LLMConfig
+from study.llm_agent_learning.config import LLMConfig
 
 
 @dataclass
