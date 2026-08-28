@@ -4,7 +4,7 @@
 工具的参数、执行函数和返回值上，而不需要处理网络请求。
 """
 
-from llm_agent_learning.agent import AgentTool, JsonValue
+from python.llm_agent_learning.agent import AgentTool, JsonValue
 
 # 模拟一个小型天气数据库。
 # 字典第一层的 key 是城市名，value 是这个城市对应的天气信息。

@@ -1,7 +1,4 @@
 from typing import Protocol
-from symtable import Class
-
-from memory_rag.domain.models import Memory
 
 
 class EmbeddingProvider(Protocol):
@@ -9,3 +6,6 @@ class EmbeddingProvider(Protocol):
     def embed(self,text:str)->list[float]:
         pass
 
+
+    def close(self) -> None:
+        pass

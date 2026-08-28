@@ -1,7 +1,7 @@
 import sys
 
-from llm_agent_learning.client import create_client
-from llm_agent_learning.config import load_config
+from python.llm_agent_learning.client import create_client
+from python.llm_agent_learning.config import load_config
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")

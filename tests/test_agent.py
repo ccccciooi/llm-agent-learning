@@ -6,10 +6,10 @@ LLM，并产生相应的请求费用。测试不使用 FakeClient 或模拟模�
 
 import unittest
 
-from llm_agent_learning.agent import AgentTool, JsonValue, MinimalAgent
-from llm_agent_learning.client import LLMClient, create_llm_client
-from llm_agent_learning.config import load_config
-from llm_agent_learning.demo_tools import TEST_WEATHER_TOOL, get_test_weather
+from python.llm_agent_learning import AgentTool, JsonValue, MinimalAgent
+from python.llm_agent_learning.client import LLMClient, create_llm_client
+from python.llm_agent_learning.config import load_config
+from python.llm_agent_learning.demo_tools import TEST_WEATHER_TOOL, get_test_weather
 
 
 class RealLLMAgentIntegrationTest(unittest.TestCase):

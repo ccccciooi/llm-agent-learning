@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from memory_rag.domain.models import Memory, MemorySearchQuery, MemorySearchResult
+from python.memory_rag.domain.models import Memory, MemorySearchQuery, MemorySearchResult
 
 
 class MemoryRepository(Protocol):

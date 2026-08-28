@@ -9,3 +9,8 @@ memory-rag:
   qdrant-url: ${QDRANT_URL}
   collection-name: ${MEMORY_RAG_COLLECTION:memories}
   qdrant-api-key: ${QDRANT_API_KEY}
+embedding:
+  base-url: ${EMBEDDING_BASE_URL}
+  api-key: ${EMBEDDING_API_KEY}
+  model: ${EMBEDDING_MODEL:text-embedding-v4}
+  dimensions: ${EMBEDDING_DIMENSIONS:1024}

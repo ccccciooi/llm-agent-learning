@@ -7,10 +7,10 @@
     uv run python examples/03_weather_tool.py
 """
 
-from llm_agent_learning.agent import MinimalAgent
-from llm_agent_learning.client import create_llm_client
-from llm_agent_learning.config import load_config
-from llm_agent_learning.demo_tools import TEST_WEATHER_TOOL
+from python.llm_agent_learning import MinimalAgent
+from python.llm_agent_learning.client import create_llm_client
+from python.llm_agent_learning.config import load_config
+from python.llm_agent_learning.demo_tools import TEST_WEATHER_TOOL
 
 
 def main() -> None:
