@@ -5,14 +5,25 @@ description = "Practice project for calling OpenAI-compatible LLM APIs."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "fastapi>=0.115,<1.0",
     "openai>=1.50,<2.0",
     "python-dotenv>=1.0,<2.0",
     "pyyaml>=6.0,<7.0",
     "qdrant-client>=1.19.0",
+    "uvicorn>=0.30,<1.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.12,<3.0",
 ]
 
 [tool.uv]
 package = true
+
+[tool.hatch.build.targets.wheel]
+only-include = ["src/memory_rag", "study"]
+sources = ["src"]
 
 [build-system]
 requires = ["hatchling"]

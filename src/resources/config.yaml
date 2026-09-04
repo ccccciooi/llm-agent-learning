@@ -6,9 +6,10 @@ llm:
   authorization-header: ${llm.authorization.header:Authorization}
   authorization-prefix: ${llm.authorization.prefix:Bearer}
 memory-rag:
-  qdrant-url: ${QDRANT_URL}
-  collection-name: ${MEMORY_RAG_COLLECTION:memories}
-  qdrant-api-key: ${QDRANT_API_KEY}
+  qdrant-url: ${QDRANT_URL:http://127.0.0.1:6333}
+  collection-name: ${MEMORY_RAG_COLLECTION:user_memories}
+  vector-name: ${MEMORY_RAG_VECTOR_NAME:semantic}
+  qdrant-api-key: ${QDRANT_API_KEY:}
 embedding:
   base-url: ${EMBEDDING_BASE_URL}
   api-key: ${EMBEDDING_API_KEY}

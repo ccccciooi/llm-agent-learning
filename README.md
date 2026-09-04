@@ -147,3 +147,34 @@ uv run python -m unittest discover -s tests -v
 ```
 
 当前 `tests/` 使用 `config.yaml` 和本地 `.env` 中配置的真实 LLM，不使用模拟响应。运行测试会访问网络并产生模型请求费用，结果也可能受到供应商状态和模型行为影响。
+
+## 6. Memory RAG 服务
+
+`src/memory_rag` 是与 Agent 示例解耦的长期记忆服务：FastAPI 提供普通 HTTP，
+Qdrant 保存向量和完整 payload，Embedding 供应商只负责生成 dense vector。
+
+```bash
+uv run uvicorn memory_rag.api.app:app --app-dir src --host 127.0.0.1 --port 8000
+```
+
+核心语义：
+
+- `POST .../memories/upsert` 用 `user_id + environment_id + fact_key` 生成稳定 UUID；
+- 内容哈希相同返回 `unchanged`，不会重复调用 Embedding；
+- 内容不同时默认返回 HTTP 409，只有 `conflict_policy=supersede` 且
+  `expected_revision` 匹配才会保留旧快照并写入下一 revision；
+- 软删除后的记录不参与普通读取或检索，可以恢复；DELETE 是永久清除；
+- 搜索综合 dense、作用域内有界 BM25、可替换 reranker、重要性和指数时间衰减，
+  响应中包含每个分量，最终 `score` 归一到 0..1。
+
+历史快照跟随同一个 Qdrant point 保存。当前 revision 原子性依赖单个 API 进程内的锁；
+多 worker 或多实例部署前，应将 compare-and-set 下沉到支持事务或分布式锁的存储层。
+
+仅运行不访问真实 LLM 的 memory_rag 测试：
+
+```bash
+PYTHONPATH=src uv run python -m unittest \
+  tests.test_memory_lifecycle_and_ranking \
+  tests.test_qdrant_memory_repository \
+  tests.test_memory_api -v
+```
