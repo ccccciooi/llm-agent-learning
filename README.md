@@ -2,6 +2,27 @@
 
 这是一个练习项目，用来学习如何调用兼容 OpenAI 协议的 LLM 供应商。
 
+## 微信记忆服务的作用域鉴权
+
+`memory_rag.api.app:app` 已支持可信宿主签发的用户/环境服务凭据。部署微信配套服务时，由
+`wechat-ai-control/scripts/local-services.mjs` 将 `WECHAT_SCOPE_SIGNING_KEY` 传给 memory_rag，
+与 Java 的签名密钥保持一致；不要把该密钥或管理员 token 传给模型/MCP。
+all-round-mcp 只收到独立 `memory-rag` audience 的 `MEMORY_RAG_API_TOKEN`。
+请求路径必须与签名中的 user/environment 完全一致；未认证为 401，跨环境/不允许的路径为 403。
+配置为空时兼容原单机教学模式；开启鉴权后不能直接沿用无认证 curl。OpenAPI/文档仅公开 schema。
+服务凭据没有短期过期时间，轮换签名密钥并重启应用/MCP 后失效；本地只监听 127.0.0.1。
+该变更不修改向量模型、记忆内容规则或 Qdrant 数据，不覆盖原有 provider 配置。
+
+针对性验证：
+
+```bash
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_memory*.py' -v
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_scoped_service_auth.py' -v
+PYTHONPATH=src .venv/bin/python -m unittest discover -s tests -p 'test_qdrant_memory_repository.py' -v
+```
+
+注意本仓库当前 `tests/` 被 Git 忽略；新增鉴权测试和日期稳定性夹具修订在工作区可运行，但不会自动纳入提交。
+
 ## 1. 按 Java/Spring 的习惯理解配置
 
 这个项目按接近 Spring Boot 的方式组织配置：

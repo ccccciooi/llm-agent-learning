@@ -1,9 +1,11 @@
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
+import os
 
 from fastapi import FastAPI
 
 from memory_rag.api.memory_routes import router as memory_router
+from memory_rag.api.auth import ScopedMemoryAuth
 from memory_rag.application.memory_service import MemoryService
 from memory_rag.config import EmbeddingSettings, QdrantSettings
 from memory_rag.infrastructure.openai_embedding_provider import OpenAIEmbeddingProvider
@@ -59,6 +61,7 @@ def create_app(memory_service: MemoryService | None = None) -> FastAPI:
         lifespan=lifespan,
     )
     application.include_router(memory_router)
+    application.add_middleware(ScopedMemoryAuth, signing_key=os.environ.get("WECHAT_SCOPE_SIGNING_KEY", ""))
     return application
 
 
